@@ -1,2 +1,4 @@
 # oneday_onesketch
-Processing
+
+
+This is a repository that posts 1 sketch every day for programming practice.

@@ -1,4 +1,5 @@
 //noise&animation
+//Teraguchi arranged version.
 float xstart, xnoise, ystart,ynoise;
 
 //init

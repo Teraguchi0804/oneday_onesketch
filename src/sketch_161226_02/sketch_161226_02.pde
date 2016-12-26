@@ -7,7 +7,7 @@ void setup(){
  size(400,400);
  
  smooth();
- background(255);
+ background(0,191,255);
  
  xstartNoise = random(20);
  ystartNoise = random(20);
@@ -16,7 +16,7 @@ void setup(){
 }
 
 void draw(){
- background(255);
+ background(0,191,255);
  
  xstartNoise += 0.01;
  ystartNoise += 0.01;
@@ -39,10 +39,14 @@ void draw(){
 void drawPoint(float x, float y, float noiseFactor){
  pushMatrix();
  translate(x,y);
- rotate(noiseFactor * radians(360));
- stroke(0.150);
- line(0,0,20,0);  
- popMatrix();
+ rotate(noiseFactor * radians(540));
+   float edgeSize = noiseFactor * 35;
+   float grey = 150 + (noiseFactor * 120);
+   float alph = 150 + (noiseFactor * 120);
+ noStroke();
+   fill(grey,alph);
+   ellipse(0,0,edgeSize, edgeSize/2);     
+   popMatrix();
 }
 
  

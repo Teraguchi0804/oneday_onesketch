@@ -1,17 +1,18 @@
-//3D
-import processing.opengl.*;
+float xstart, ystart, zstart;
+float xnoise, ynoise, znoise;
 
-float xstart, xnoise, ystart, ynoise;
+int sideLength = 200;
+int spacing = 5;
 
 //init
 void setup(){
- size(500,300,OPENGL);
+ size(500, 300, P3D);
  background(0);
- sphereDetail(8);
  noStroke();
  
  xstart = random(10);
  ystart = random(10);
+ zstart = random(10);
 }
 
 void draw(){
@@ -19,31 +20,36 @@ void draw(){
  
  xstart += 0.01;
  ystart += 0.01;
+ zstart += 0.01;
  
  xnoise = xstart;
  ynoise = ystart;
+ znoise = zstart;
  
- for(int y = 0; y <= height; y+=5){
-  ynoise += 0.1;
-  xnoise = xstart;
-  for(int x = 0; x <= width; x+=5){
-   xnoise += 0.1;
-   drawPoint(x,y,noise(xnoise,ynoise));
-  }  
- }  
+ translate(150, 20, -150);
+ rotateZ(frameCount * 0.1);
+ rotateY(frameCount * 0.1);
  
- translate(250, 150, 150);
- sphere(100);
+ for(int z = 0; z <= sideLength; z+=spacing){
+   znoise += 0.1;
+   ynoise = ystart;
+   for(int y = 0; y <= sideLength; y+=spacing){
+    ynoise += 0.1;
+    xnoise = xstart;
+    for(int x = 0; x <= sideLength; x+=spacing){
+     xnoise += 0.1;
+     drawPoint(x,y,z,noise(xnoise,ynoise,znoise));
+    }  
+   }  
+ }
 }
  
-void drawPoint(float x, float y, float noiseFactor){
+void drawPoint(float x, float y, float z, float noiseFactor){
  pushMatrix();
  
- translate(x, 250 - y, -y);
- float sphereSize = noiseFactor * 35;
- float grey = 150 + (noiseFactor * 120);
- float alph = 150 + (noiseFactor * 120);
- fill(grey,alph);
- sphere(sphereSize);
+ translate(x, y, z);
+ float grey = noiseFactor * 255;
+ fill(grey, 10);
+ box(spacing,spacing,spacing);
  popMatrix();
 }  
